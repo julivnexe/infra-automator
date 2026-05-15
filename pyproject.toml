@@ -35,8 +35,8 @@ dependencies = [
 infra = "infra.cli:cli"
 
 [project.urls]
-Homepage = "https://github.com/your-org/infra-automator"
-Issues = "https://github.com/your-org/infra-automator/issues"
+Homepage = "https://github.com/julivnexe/infra-automator"
+Issues = "https://github.com/julivnexe/infra-automator/issues"
 
 [tool.setuptools.packages.find]
 include = ["infra*"]

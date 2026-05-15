@@ -6,8 +6,8 @@
 
 `infra up` → `infra harden` → `infra deploy` → `infra status` → `infra destroy`
 
-[![CI](https://img.shields.io/github/actions/workflow/status/your-org/infra-automator/ci.yml?branch=main&label=ci)](.github/workflows/ci.yml)
-[![Security](https://img.shields.io/github/actions/workflow/status/your-org/infra-automator/security.yml?branch=main&label=security)](.github/workflows/security.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/julivnexe/infra-automator/ci.yml?branch=main&label=ci)](.github/workflows/ci.yml)
+[![Security](https://img.shields.io/github/actions/workflow/status/julivnexe/infra-automator/security.yml?branch=main&label=security)](.github/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![Terraform](https://img.shields.io/badge/terraform-%E2%89%A51.5-7B42BC)](terraform/)
@@ -141,7 +141,7 @@ infra-automator/
 ### 2. Install
 
 ```bash
-git clone https://github.com/your-org/infra-automator.git
+git clone https://github.com/julivnexe/infra-automator.git
 cd infra-automator
 ./scripts/bootstrap.sh         # creates .venv, installs deps, copies .env
 source .venv/bin/activate

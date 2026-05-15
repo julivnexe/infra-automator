@@ -46,7 +46,7 @@ def status_command(cfg: Config) -> None:
                 target, "sudo docker ps --format '{{.Names}}' 2>/dev/null | wc -l", check=False
             )
             _, disk, _ = run(target, "df -h / | awk 'NR==2 {print $5}'", check=False)
-        except Exception as exc:  # noqa: BLE001 — surface as a row, don't crash the whole table
+        except Exception as exc:
             log.debug("status probe failed for %s: %s", ip, exc)
             table.add_row(ip, "[yellow]?[/]", "ssh ok, probe failed", "-", "-")
             continue

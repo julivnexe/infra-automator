@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import FrozenInstanceError
 from pathlib import Path
 
 import pytest
@@ -79,5 +80,5 @@ def test_config_is_frozen() -> None:
         admin_user="deploy",
         ssh_port=22,
     )
-    with pytest.raises(Exception):  # FrozenInstanceError subclass of AttributeError
+    with pytest.raises(FrozenInstanceError):
         cfg.env = "prod"  # type: ignore[misc]

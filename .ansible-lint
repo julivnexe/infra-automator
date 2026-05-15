@@ -7,8 +7,10 @@ exclude_paths:
 
 skip_list:
   - yaml[line-length]      # block contents are mostly URLs and configs
+  - yaml[commas]           # we don't column-align, but be lenient for handlers/loops
   - name[casing]           # capitalised role-task names are fine here
   - fqcn[action-core]      # full FQCN for ansible.builtin is noise in roles
+  - args[module]           # false positive for templated loop vars (e.g. policy: "{{ item.policy }}")
 
 # Treat warnings as warnings, not errors — keeps CI green on stylistic nits.
 warn_list:

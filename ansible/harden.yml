@@ -14,8 +14,8 @@
     extra_open_ports: "{{ extra_open_ports | default([]) }}"
 
   roles:
-    - { role: common,   tags: ["common"] }
-    - { role: ssh,      tags: ["ssh"] }
+    - { role: common, tags: ["common"] }
+    - { role: ssh, tags: ["ssh"] }
     - { role: firewall, tags: ["firewall"] }
     - { role: fail2ban, tags: ["fail2ban"] }
-    - { role: docker,   tags: ["docker"] }
+    - { role: docker, tags: ["docker"] }

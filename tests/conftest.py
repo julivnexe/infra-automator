@@ -19,5 +19,7 @@ def fake_ssh_key(tmp_path: Path) -> Path:
 def _clean_env(monkeypatch: pytest.MonkeyPatch) -> None:
     """Strip INFRA_* / VULTR_* / DIGITALOCEAN_* from the env per test."""
     for key in list(os.environ):
-        if key.startswith(("INFRA_", "VULTR_", "DIGITALOCEAN_", "SSH_", "ADMIN_", "EXTRA_", "COMPOSE_", "APP_")):
+        if key.startswith(
+            ("INFRA_", "VULTR_", "DIGITALOCEAN_", "SSH_", "ADMIN_", "EXTRA_", "COMPOSE_", "APP_")
+        ):
             monkeypatch.delenv(key, raising=False)

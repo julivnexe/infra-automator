@@ -11,14 +11,14 @@ resource "digitalocean_ssh_key" "deploy" {
 resource "digitalocean_droplet" "node" {
   count = var.node_count
 
-  name     = "${local.name_prefix}-${format("%02d", count.index + 1)}"
-  region   = var.region
-  size     = var.plan
-  image    = var.image
-  ssh_keys = [digitalocean_ssh_key.deploy.fingerprint]
-  ipv6     = true
+  name       = "${local.name_prefix}-${format("%02d", count.index + 1)}"
+  region     = var.region
+  size       = var.plan
+  image      = var.image
+  ssh_keys   = [digitalocean_ssh_key.deploy.fingerprint]
+  ipv6       = true
   monitoring = true
-  tags     = local.tags
+  tags       = local.tags
 
   lifecycle {
     ignore_changes = [tags]

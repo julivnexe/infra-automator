@@ -24,7 +24,9 @@ REMOTE_DIR = "/opt/infra-app"
     show_default=True,
     help="Local directory containing docker-compose.yml and supporting files.",
 )
-@click.option("--pull/--no-pull", default=True, show_default=True, help="docker compose pull before up.")
+@click.option(
+    "--pull/--no-pull", default=True, show_default=True, help="docker compose pull before up."
+)
 @click.pass_obj
 def deploy_command(cfg: Config, stack: Path, pull: bool) -> None:
     """Sync the compose stack to each server and bring it up."""
@@ -40,7 +42,9 @@ def deploy_command(cfg: Config, stack: Path, pull: bool) -> None:
 
     for ip in ips:
         log.info("[cyan]→[/] deploying to %s", ip)
-        target = SshTarget(host=ip, user=cfg.admin_user, key_path=cfg.ssh_private_key, port=cfg.ssh_port)
+        target = SshTarget(
+            host=ip, user=cfg.admin_user, key_path=cfg.ssh_private_key, port=cfg.ssh_port
+        )
 
         # Ensure Docker is present — harden role installs it, but be defensive.
         rc, _, _ = run(target, "command -v docker", check=False)
@@ -52,8 +56,7 @@ def deploy_command(cfg: Config, stack: Path, pull: bool) -> None:
         upload_tree(target, stack, REMOTE_DIR)
 
         env_line = (
-            f"COMPOSE_PROJECT_NAME={cfg.compose_project} "
-            f"APP_IMAGE_TAG={cfg.app_image_tag}"
+            f"COMPOSE_PROJECT_NAME={cfg.compose_project} " f"APP_IMAGE_TAG={cfg.app_image_tag}"
         )
 
         if pull:

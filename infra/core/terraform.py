@@ -70,6 +70,7 @@ def _run(args: list[str], cfg: Config, capture: bool = False) -> subprocess.Comp
 # Public API
 # ---------------------------------------------------------------------------
 
+
 def init(cfg: Config) -> None:
     result = _run(["init", "-upgrade", "-no-color"], cfg)
     if result.returncode != 0:
@@ -137,6 +138,8 @@ def write_inventory(cfg: Config, ips: list[str], path: Path) -> Path:
     content.append(f"    ansible_ssh_private_key_file: {cfg.ssh_private_key}")
     content.append(f"    admin_user: {cfg.admin_user}")
     content.append(f"    ssh_port: {cfg.ssh_port}")
-    content.append("    extra_open_ports: [" + ", ".join(str(p) for p in cfg.extra_open_ports) + "]")
+    content.append(
+        "    extra_open_ports: [" + ", ".join(str(p) for p in cfg.extra_open_ports) + "]"
+    )
     path.write_text("\n".join(content) + "\n", encoding="utf-8")
     return path

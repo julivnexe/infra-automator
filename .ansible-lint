@@ -1,0 +1,17 @@
+# ansible-lint is opinionated by default — quiet down rules that don't apply
+# to a portfolio playbook with a single inventory and per-host overrides.
+exclude_paths:
+  - .venv/
+  - .infra/
+  - tests/
+
+skip_list:
+  - yaml[line-length]      # block contents are mostly URLs and configs
+  - name[casing]           # capitalised role-task names are fine here
+  - fqcn[action-core]      # full FQCN for ansible.builtin is noise in roles
+
+# Treat warnings as warnings, not errors — keeps CI green on stylistic nits.
+warn_list:
+  - command-instead-of-shell
+  - no-changed-when
+  - risky-file-permissions

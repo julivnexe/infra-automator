@@ -39,7 +39,9 @@ def status_command(cfg: Config) -> None:
             table.add_row(ip, "[red]✗[/]", "-", "-", "-")
             continue
 
-        target = SshTarget(host=ip, user=cfg.admin_user, key_path=cfg.ssh_private_key, port=cfg.ssh_port)
+        target = SshTarget(
+            host=ip, user=cfg.admin_user, key_path=cfg.ssh_private_key, port=cfg.ssh_port
+        )
         try:
             _, uptime, _ = run(target, "uptime -p", check=False)
             _, containers, _ = run(

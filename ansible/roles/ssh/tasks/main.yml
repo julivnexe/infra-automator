@@ -1,0 +1,26 @@
+---
+# Lock SSH down to key-based auth on a configurable port, no root login.
+- name: Render sshd_config
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/99-hardening.conf
+    mode: "0644"
+    content: |
+      Port {{ ssh_port }}
+      PermitRootLogin no
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
+      KbdInteractiveAuthentication no
+      UsePAM yes
+      X11Forwarding no
+      AllowAgentForwarding no
+      AllowTcpForwarding no
+      ClientAliveInterval 300
+      ClientAliveCountMax 2
+      MaxAuthTries 3
+      LoginGraceTime 30
+      AllowUsers {{ admin_user }}
+  notify: restart sshd
+
+- name: Validate sshd config
+  ansible.builtin.command: sshd -t
+  changed_when: false

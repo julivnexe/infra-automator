@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: terraform
+    directory: /terraform/vultr
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: terraform
+    directory: /terraform/digitalocean
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: docker
+    directory: /deploy/apps/sample-app
+    schedule:
+      interval: weekly

@@ -1,0 +1,21 @@
+---
+# Baseline hardening playbook.
+#
+# Idempotent: safe to re-run. Splits the work into focused roles so that
+# you can disable any single concern with a tag (e.g. `--skip-tags fail2ban`).
+- name: Baseline hardening
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    admin_user: "{{ admin_user | default('deploy') }}"
+    ssh_port: "{{ ssh_port | default(22) }}"
+    extra_open_ports: "{{ extra_open_ports | default([]) }}"
+
+  roles:
+    - { role: common,   tags: ["common"] }
+    - { role: ssh,      tags: ["ssh"] }
+    - { role: firewall, tags: ["firewall"] }
+    - { role: fail2ban, tags: ["fail2ban"] }
+    - { role: docker,   tags: ["docker"] }

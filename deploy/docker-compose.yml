@@ -1,0 +1,38 @@
+# Sample two-service stack: a tiny FastAPI app fronted by nginx.
+# Tweak / replace for your own workloads — `infra deploy` will sync whatever
+# lives in this directory to /opt/infra-app on every node.
+name: ${COMPOSE_PROJECT_NAME:-infra-app}
+
+services:
+  app:
+    build: ./apps/sample-app
+    image: infra-automator/sample-app:${APP_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    environment:
+      APP_ENV: production
+    networks:
+      - edge
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - edge
+
+networks:
+  edge:
+    driver: bridge

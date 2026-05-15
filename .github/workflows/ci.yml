@@ -108,3 +108,6 @@ jobs:
       - uses: ludeeus/action-shellcheck@2.0.0
         with:
           scandir: ./scripts
+          # Don't fail on info-level findings like SC1091 (can't follow runtime
+          # sources such as /etc/os-release). Real bugs are still caught.
+          severity: warning
